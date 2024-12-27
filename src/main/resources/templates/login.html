@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background-color: #2c3e50;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            padding: 0.5rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .register-btn {
+            background-color: #27ae60;
+            color: white;
+        }
+
+        .login-btn {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .register-btn:hover {
+            background-color: #219a52;
+        }
+
+        .login-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        div[align="center"] {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 1rem;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #219a52;
+        }
+
+        .message {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-text {
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            div[align="center"] {
+                padding: 1.5rem;
+            }
+
+            .footer {
+                padding: 1rem;
+            }
+
+            .footer-links {
+                gap: 1rem;
+            }
+
+            .footer-links a {
+                font-size: 0.9rem;
+            }
+
+            .footer-text {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-links {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+        <div class="logo"><a href="/">JobPortal</a></div>
+        <div class="nav-buttons">
+            <a href="/login"><button class="nav-btn login-btn">Login</button></a>
+            <a href="/jobseeker/register"><button class="nav-btn register-btn">Register</button></a>
+        </div>
+    </nav>
+
+    <div align="center">
+      <h1>Login</h1>
+
+      <div
+        class="message"
+        th:if="${session.success != null || session.error != null}"
+      >
+        <h3 style="color: green" th:text="${session.success}"></h3>
+        <h3 style="color: red" th:text="${session.error}"></h3>
+        <th:block th:text="${@messageRemover.remove()}"></th:block>
+      </div>
+
+      <form action="/login" method="post">
+        <input type="text" name="emph" placeholder="Email or Phone Number" />
+        <input type="password" name="password" placeholder="Password" />
+        <button type="submit">Login</button>
+      </form>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="/about-us">About Us</a>
+                <a href="/contact">Contact</a>
+                <a href="/privacy-policy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+            </div>
+            <p class="footer-text">© 2024 JobPortal. All rights reserved.</p>
+        </div>
+    </footer>
+  </body>
+</html>

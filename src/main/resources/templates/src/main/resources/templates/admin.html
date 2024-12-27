@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .btn {
+            padding: 5px 10px;
+            margin: 2px;
+            cursor: pointer;
+            border: none;
+            border-radius: 3px;
+        }
+        .approve {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .reject {
+            background-color: #f44336;
+            color: white;
+        }
+    </style>
+</head><body>
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Company Name</th>
+                <th>Role</th>
+                <th>Description</th>
+                <th>Skills</th>
+                <th>Location</th>
+                <th>CTC</th>
+                <th>Experience</th>
+                <th>Recruiter Name</th>
+                <th>Recruiter Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="job : ${jobs}">
+                <td th:text="${job.id}"></td>
+                <td th:text="${job.recruiter.companyName}"></td>
+                <td th:text="${job.role}"></td>
+                <td th:text="${job.description}"></td>
+                <td th:text="${job.skills}"></td>
+                <td th:text="${job.location}"></td>
+                <td th:text="${job.ctc}"></td>
+                <td th:text="${job.experience}"></td>
+                <td th:text="${job.recruiter.name}"></td>
+                <td th:text="${job.recruiter.email}"></td>
+                <td class="text-center">
+                    <a th:href="@{/recruiter/edit-job(id=${job.id})}" class="btn btn-primary btn-sm me-2">
+                        Edit
+                    </a>
+                    <br>	
+                    <a th:href="@{/recruiter/delete-job(id=${job.id})}" 
+                       onclick="return confirm('Are you sure you want to delete this job?')"
+                       class="btn btn-danger btn-sm">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
